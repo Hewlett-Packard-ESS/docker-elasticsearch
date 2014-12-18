@@ -1,0 +1,8 @@
+path:
+  data: /storage/data
+  logs: /storage/log
+  plugins: /storage/plugins
+  work: /storage/work
+
+http.cors.allow-origin: "/.*/"
+http.cors.enabled: true
