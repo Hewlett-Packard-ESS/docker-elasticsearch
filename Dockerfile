@@ -6,7 +6,7 @@ ENV ES_PKG_NAME elasticsearch-1.4.1
 # Install ElasticSearch.
 RUN cd /opt && \
     wget --quiet https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
-    tar xvzf $ES_PKG_NAME.tar.gz && \
+    tar xzf $ES_PKG_NAME.tar.gz && \
     rm -f $ES_PKG_NAME.tar.gz && \
     mv $ES_PKG_NAME elasticsearch
 
@@ -26,7 +26,7 @@ EXPOSE 9200
 EXPOSE 9300
 
 # Mount elasticsearch.yml config
-ADD storage/config/elasticsearch.yml /storage/config/elasticsearch.yml
+COPY storage/config/elasticsearch.yml /storage/config/elasticsearch.yml
 
 # Add the services
 COPY services/* /etc/supervisord.d/
