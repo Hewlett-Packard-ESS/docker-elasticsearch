@@ -1,7 +1,7 @@
 FROM hpess/jre
 MAINTAINER Paul Cooke <paul.cooke@hp.com>
 
-ENV ES_PKG_NAME elasticsearch-1.4.1
+ENV ES_PKG_NAME elasticsearch-1.4.2
 
 # Install ElasticSearch.
 RUN cd /opt && \
@@ -15,9 +15,8 @@ RUN mkdir -p /storage/data && \
     mkdir -p /storage/work && \
     mkdir -p /storage/plugins
 
-# Define default command.
-#ENTRYPOINT ["/bin/sh"]
-#CMD ["/opt/elasticsearch/bin/elasticsearch", "-Des.config=/storage/config/elasticsearch.yml"]
+# Install Elasticsearch Head
+RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head
 
 # Expose ports.
 #   - 9200: HTTP
