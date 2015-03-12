@@ -1,0 +1,10 @@
+elasticsearch:
+  image: hpess/elasticsearch
+  hostname: elasticsearch
+  environment:
+    node_name: 'test_node'
+    cluster_name: 'test_cluster'
+    DEBUG: 'true'
+  ports:
+    - "9200:9200/tcp"
+    - "9300:9300/tcp"

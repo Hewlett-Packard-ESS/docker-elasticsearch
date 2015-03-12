@@ -1,0 +1,12 @@
+path:
+  data: /storage/data
+  logs: /storage/log
+  plugins: /opt/elasticsearch/plugins
+  work: /storage/work<% if not @node_name.nil? %>
+node:
+  name: '<%= @node_name %>'<% end %><% if not @cluster_name.nil? %>
+cluster:
+  name: '<%= @cluster_name %>'<%end%>
+bootstrap.mlockall: true
+http.cors.allow-origin: "/.*/"
+http.cors.enabled: true
