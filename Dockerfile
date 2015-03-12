@@ -5,7 +5,7 @@ ENV ES_PKG_NAME elasticsearch-1.4.4
 
 # Install ElasticSearch.
 RUN cd /opt && \
-    https_proxy=http://proxy.sdc.hp.com:8080 wget --quiet https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
+    wget --quiet https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
     tar xzf $ES_PKG_NAME.tar.gz && \
     rm -f $ES_PKG_NAME.tar.gz && \
     mv $ES_PKG_NAME elasticsearch
