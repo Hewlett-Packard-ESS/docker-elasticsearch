@@ -15,5 +15,5 @@ template '/storage/config/elasticsearch.yml' do
   variables config 
   owner     'docker'
   group     'docker'
-  action    :create
+  action    :create_if_missing
 end
