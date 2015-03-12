@@ -1,7 +1,7 @@
 FROM hpess/jre
 MAINTAINER Paul Cooke <paul.cooke@hp.com>
 
-ENV ES_PKG_NAME elasticsearch-1.4.2
+ENV ES_PKG_NAME elasticsearch-1.4.4
 
 # Install ElasticSearch.
 RUN cd /opt && \

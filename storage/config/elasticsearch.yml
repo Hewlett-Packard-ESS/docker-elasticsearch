@@ -1,7 +1,7 @@
 path:
   data: /storage/data
   logs: /storage/log
-  plugins: /storage/plugins
+  plugins: /opt/elasticsearch/plugins
   work: /storage/work
 
 http.cors.allow-origin: "/.*/"
