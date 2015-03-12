@@ -12,11 +12,14 @@ RUN cd /opt && \
 
 RUN mkdir -p /storage/data && \
     mkdir -p /storage/log && \
-    mkdir -p /storage/work && \
-    mkdir -p /storage/plugins
+    mkdir -p /storage/work 
 
 # Install Elasticsearch Head
-#RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+
+# Set the correct user permissions on the files
+RUN chown -R docker:docker /opt/elasticsearch && \
+    chown -R docker:docker /storage
 
 # Expose ports.
 EXPOSE 9200
