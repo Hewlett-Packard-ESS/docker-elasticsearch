@@ -22,6 +22,9 @@ You can backup all indicies by omitting the final `.kibana` part, for example: `
 
 Remember, backups are deltad, please read: [Backing up your Cluster](http://www.elastic.co/guide/en/elasticsearch/guide/current/backing-up-your-cluster.html).
 
+## Performance
+In order for elasticsearch to configure itself in the most optimal way possible, you'll want to run the container privileged.  This isn't required, but will do things like jvm malloc.
+
 ## License
 This docker application is distributed unter the MIT License (MIT).
 

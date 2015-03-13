@@ -1,6 +1,7 @@
 elasticsearch:
   image: hpess/elasticsearch
   hostname: elasticsearch
+  privileged: true
   environment:
     node_name: 'test_node'
     cluster_name: 'test_cluster'
