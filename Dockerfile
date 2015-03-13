@@ -21,15 +21,21 @@ RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head
 RUN chown -R docker:docker /opt/elasticsearch && \
     chown -R docker:docker /storage
 
+# Install cronie for backups
+RUN yum -y install cronie && \
+    yum -y clean all
+
 # Expose ports.
 EXPOSE 9200
 EXPOSE 9300
 
 # Setup the service and cookbooks
 COPY services/* /etc/supervisord.d/
-COPY cookbooks/ /chef/cookbooks/
 
 # Setup the environment
 ENV HPESS_ENV elasticsearch
 ENV chef_node_name elasticsearch.docker.local
 ENV chef_run_list elasticsearch
+
+
+COPY cookbooks/ /chef/cookbooks/

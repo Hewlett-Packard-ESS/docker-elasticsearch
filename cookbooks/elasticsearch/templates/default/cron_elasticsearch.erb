@@ -1,0 +1,3 @@
+<% @items.each do |item| %>
+<%= item['cron'] %> docker /usr/local/bin/backup_elasticsearch.sh <%= item['name'] %> <%= item['location'] %> <%= item['index'] %>
+<% end %>

@@ -1,0 +1,22 @@
+#!/bin/bash
+ELASTICSEARCH_URL=localhost:9200/_snapshot/$1
+
+# First try and get the backup
+if curl --silent $ELASTICSEARCH_URL | grep -q 404; then
+        echo "Backup definition for $1 doesn't exist, creating..."
+        curl -H "Content-Type: application/json" \
+                -XPUT "$ELASTICSEARCH_URL" \
+                -d "{
+                        \"type\": \"fs\",
+                        \"settings\": {
+                                \"location\": \"$2\",
+                                \"compress\": true,
+                                \"indices\": \"$3\"
+                        }
+                }"
+        echo ""
+fi
+
+# Now trigger a new backup
+echo "Triggering new backup for $1..."
+curl -XPUT $ELASTICSEARCH_URL/snapshot_`date +"%s"`
