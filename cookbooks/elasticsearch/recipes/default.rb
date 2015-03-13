@@ -47,7 +47,7 @@ end
 
 template '/etc/cron.d/elasticsearch_backup' do
 	source    'cron_elasticsearch.erb'
-	mode	  '0755'
+	mode	  '0644'
 	variables({
 		"items" => backup
 	})

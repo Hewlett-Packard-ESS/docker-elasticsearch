@@ -15,7 +15,8 @@ RUN mkdir -p /storage/data && \
     mkdir -p /storage/work 
 
 # Install Elasticsearch Head
-RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head && \
+    /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf
 
 # Set the correct user permissions on the files
 RUN chown -R docker:docker /opt/elasticsearch && \
@@ -23,14 +24,16 @@ RUN chown -R docker:docker /opt/elasticsearch && \
 
 # Install cronie for backups
 RUN yum -y install cronie && \
-    yum -y clean all
+    yum -y clean all && \
+    mkdir -p /var/lock/subsys && \
+    sed -i '/session    required   pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/crond
 
 # Get rid of any cron jobs that are there by default
-RUN rm -rf /etc/cron.daily && \
-    rm -rf /etc/cron.hourly && \
-    rm -rf /etc/cron.monthly && \
-    rm -rf /etc/cron.weekly && \
-    rm -f /etc/cron.d/0hourly
+RUN rm -f /etc/cron.daily/* && \
+    rm -f /etc/cron.hourly/* && \
+    rm -f /etc/cron.monthly/* && \
+    rm -f /etc/cron.weekly/* && \
+    rm -f /etc/cron.d/*
 
 # Expose ports.
 EXPOSE 9200 9300

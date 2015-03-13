@@ -4,7 +4,7 @@ elasticsearch:
   environment:
     node_name: 'test_node'
     cluster_name: 'test_cluster'
-    elasticsearch_backup: 'all:30 * * * *:/storage/backup/all'
+    elasticsearch_backup: 'all:* * * * *:/storage/backup/all'
     DEBUG: 'true'
   ports:
     - "9200:9200/tcp"
