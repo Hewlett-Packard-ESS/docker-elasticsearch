@@ -30,12 +30,10 @@ EXPOSE 9200
 EXPOSE 9300
 
 # Setup the service and cookbooks
+COPY cookbooks/ /chef/cookbooks/
 COPY services/* /etc/supervisord.d/
 
 # Setup the environment
 ENV HPESS_ENV elasticsearch
 ENV chef_node_name elasticsearch.docker.local
 ENV chef_run_list elasticsearch
-
-
-COPY cookbooks/ /chef/cookbooks/
