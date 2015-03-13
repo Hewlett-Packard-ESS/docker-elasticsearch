@@ -25,9 +25,15 @@ RUN chown -R docker:docker /opt/elasticsearch && \
 RUN yum -y install cronie && \
     yum -y clean all
 
+# Get rid of any cron jobs that are there by default
+RUN rm -rf /etc/cron.daily && \
+    rm -rf /etc/cron.hourly && \
+    rm -rf /etc/cron.monthly && \
+    rm -rf /etc/cron.weekly && \
+    rm -f /etc/cron.d/0hourly
+
 # Expose ports.
-EXPOSE 9200
-EXPOSE 9300
+EXPOSE 9200 9300
 
 # Setup the service and cookbooks
 COPY cookbooks/ /chef/cookbooks/
