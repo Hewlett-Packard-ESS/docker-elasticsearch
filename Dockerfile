@@ -8,19 +8,15 @@ RUN cd /opt && \
     wget --quiet https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_PKG_NAME.tar.gz && \
     tar xzf $ES_PKG_NAME.tar.gz && \
     rm -f $ES_PKG_NAME.tar.gz && \
-    mv $ES_PKG_NAME elasticsearch
+    mv $ES_PKG_NAME elasticsearch && \
+    /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head && \
+    /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf && \
+    chown -R docker:docker /opt/elasticsearch && \
+    chown -R docker:docker /storage
 
 RUN mkdir -p /storage/data && \
     mkdir -p /storage/log && \
     mkdir -p /storage/work 
-
-# Install Elasticsearch Head
-RUN /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head && \
-    /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf
-
-# Set the correct user permissions on the files
-RUN chown -R docker:docker /opt/elasticsearch && \
-    chown -R docker:docker /storage
 
 # Install cronie for backups
 RUN yum -y -q install cronie && \
