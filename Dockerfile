@@ -23,8 +23,8 @@ RUN chown -R docker:docker /opt/elasticsearch && \
     chown -R docker:docker /storage
 
 # Install cronie for backups
-RUN yum -y install cronie && \
-    yum -y clean all && \
+RUN yum -y -q install cronie && \
+    yum -y -q clean all && \
     mkdir -p /var/lock/subsys && \
     sed -i '/session    required   pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/crond
 
