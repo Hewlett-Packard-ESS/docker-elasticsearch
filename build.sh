@@ -1,1 +1,1 @@
-docker build -t hpess/elasticsearch:latest .
+docker build -t hpess/elasticsearch:master .
