@@ -38,6 +38,14 @@ cookbook_file 'cron' do
 	action :nothing
 end
 
+cookbook_file 'elasticsearch-logging-config' do
+	source 'logging.yml'
+	owner     'docker'
+	group     'docker'
+	path   '/storage/config/logging.yml'
+	action :create_if_missing
+end
+
 template '/usr/local/bin/backup_elasticsearch.sh' do
 	source    'backup_elasticsearch.sh.erb'
 	mode	  '0755'
@@ -55,4 +63,3 @@ template '/etc/cron.d/elasticsearch_backup' do
 	notifies  :create, 'cookbook_file[cron]', :delayed
 	not_if { backup.nil? }
 end
-

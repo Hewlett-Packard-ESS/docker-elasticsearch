@@ -15,6 +15,9 @@ elasticsearch:
     - "9200:9200/tcp" 
     - "9300:9300/tcp" 
 ```
+## Logging
+By default, only WARN and above will be visible in the stdout and subsequently docker logs.  INFO and above are logged to /storage/logs
+
 ## Backing up
 You can configure backups quite easily with the `elasticsearch_backup` environment variable.  You must follow the exact syntax of: `name:crontab:location:indices`, for example to back up the kibana index every 30 minutes you would use `my_kibana_backup:30 * * * *:/storage/backup/kibana:.kibana`.
 
