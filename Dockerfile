@@ -11,12 +11,11 @@ RUN cd /opt && \
     mv $ES_PKG_NAME elasticsearch && \
     /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head && \
     /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf && \
+    mkdir -p /storage/data && \
+    mkdir -p /storage/log && \
+    mkdir -p /storage/work && \ 
     chown -R docker:docker /opt/elasticsearch && \
     chown -R docker:docker /storage
-
-RUN mkdir -p /storage/data && \
-    mkdir -p /storage/log && \
-    mkdir -p /storage/work 
 
 # Install cronie for backups
 RUN yum -y -q install cronie && \
