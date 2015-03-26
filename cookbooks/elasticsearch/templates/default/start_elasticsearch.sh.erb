@@ -1,0 +1,69 @@
+#!/bin/bash
+set -e
+ES_HEAP_SIZE=${ES_HEAP_SIZE:-1g}
+MAX_OPEN_FILES=65535
+MAX_LOCKED_MEMORY=unlimited
+
+function cmd() 
+{
+	method=$1
+	location=$2
+	post_file=$3
+	if [ "$post_file" == "" ]; then
+		curl --noproxy 127.0.0.1 -X$method http://127.0.0.1:9200/$location
+	else
+		curl --noproxy 127.0.0.1 -X$method http://127.0.0.1:9200/$location -d @$post_file
+	fi
+}
+
+function isup() {
+	cmd "GET" | grep -qi '"status" : 200'
+}
+
+function block_until_isup()
+{
+	set +e
+	while ! isup >/dev/null 2>&1; do
+		debug "Still waiting for node to come up..."
+		sleep 5
+	done
+	set -e
+}
+
+function start()
+{
+	/opt/elasticsearch/bin/elasticsearch -Des.config=/storage/config/elasticsearch.yml &
+	parent=$!
+
+	info "Waiting for node to come up..."
+	block_until_isup
+	info "Node is up!"
+
+	# Now post any templates off
+	if [ -d "/storage/templates" ]; then
+		for f in `ls -1 /storage/templates`; do
+			file_path=/storage/templates/$f
+			file_name=`echo $f | cut -d'.' --complement -f2-`
+			info "Sending template: $file_name ($file_path)"
+			cmd "POST" "_template/$file_name" "$file_path"
+		    echo ""	
+		done
+	fi
+}
+
+function stop() 
+{
+	info "Stopping Elasticsearch..."
+	cmd "POST" "_cluster/nodes/_local/_shutdown" &
+	echo ""
+	wait $parent
+	exit_code=$?
+	info "Elasticsearch Stopped! Exit code was $exit_code"
+	exit $exit_code
+}
+
+trap stop TERM INT
+
+start
+info "Elasticsearch is good to go"
+wait $parent

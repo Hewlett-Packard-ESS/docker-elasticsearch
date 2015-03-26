@@ -1,2 +1,5 @@
 *.swp
 fig.yml
+storage/data/
+storage/log/
+storage/config/

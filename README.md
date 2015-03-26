@@ -18,6 +18,9 @@ elasticsearch:
 ## Logging
 By default, only WARN and above will be visible in the stdout and subsequently docker logs.  INFO and above are logged to /storage/logs
 
+## Templates
+To make life easily, at start up we will attempt to import any index templates found in /storage/templates.  For example, `logstash.json` would be uploaded with the name `logstash` and the contents of `/storage/templates/logstash.json` will be psoted as the contents.
+
 ## Backing up
 You can configure backups quite easily with the `elasticsearch_backup` environment variable.  You must follow the exact syntax of: `name:crontab:location:indices`, for example to back up the kibana index every 30 minutes you would use `my_kibana_backup:30 * * * *:/storage/backup/kibana:.kibana`.
 

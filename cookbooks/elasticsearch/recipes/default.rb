@@ -9,6 +9,7 @@ config = {
 	:node_name    => ENV['node_name'], 
 	:cluster_name => ENV['cluster_name'] 
 }
+config[:cluster_name] = 'cluster1' if config[:cluster_name].nil?
 
 template '/storage/config/elasticsearch.yml' do
 	source    'elasticsearch.yml.erb'
@@ -44,6 +45,12 @@ cookbook_file 'elasticsearch-logging-config' do
 	group     'docker'
 	path   '/storage/config/logging.yml'
 	action :create_if_missing
+end
+
+template '/usr/local/bin/start_elasticsearch.sh' do
+	source    'start_elasticsearch.sh.erb'
+	mode	  '0755'
+	action    :create
 end
 
 template '/usr/local/bin/backup_elasticsearch.sh' do

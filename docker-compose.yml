@@ -7,6 +7,8 @@ elasticsearch:
     cluster_name: 'test_cluster'
     elasticsearch_backup: 'all:* * * * *:/storage/backup/all'
     DEBUG: 'true'
+  volumes:
+    - ./storage:/storage
   ports:
     - "9200:9200/tcp"
     - "9300:9300/tcp"

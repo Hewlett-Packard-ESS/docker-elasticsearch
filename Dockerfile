@@ -31,8 +31,8 @@ RUN rm -f /etc/cron.daily/* && \
     rm -f /etc/cron.d/*
 
 # Performance Tweaks
-RUN echo "\* soft nofile 64000" >> /etc/security/limits.conf
-RUN echo "\* hard nofile 75000" >> /etc/security/limits.conf
+RUN echo "elasticsearch - nofile 65535" >> /etc/security/limits.conf
+RUN echo "elasticsearch - memlock unlimited" >> /etc/security/limits.conf
 RUN echo vm.max_map_count=262144 > /etc/sysctl.d/max_map_count.conf
 RUN echo vm.swappiness=0 > /etc/sysctl.d/swappiness.conf
 ENV ES_HEAP_SIZE 1g
