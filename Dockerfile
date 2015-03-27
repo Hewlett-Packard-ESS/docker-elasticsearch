@@ -31,11 +31,14 @@ RUN rm -f /etc/cron.daily/* && \
     rm -f /etc/cron.d/*
 
 # Performance Tweaks
-RUN echo "elasticsearch - nofile 65535" >> /etc/security/limits.conf
-RUN echo "elasticsearch - memlock unlimited" >> /etc/security/limits.conf
-RUN echo vm.max_map_count=262144 > /etc/sysctl.d/max_map_count.conf
-RUN echo vm.swappiness=0 > /etc/sysctl.d/swappiness.conf
+RUN echo "* - nofile 65535" >> /etc/security/limits.conf && \
+    echo "* - memlock unlimited" >> /etc/security/limits.conf && \
+    echo vm.max_map_count=262144 > /etc/sysctl.d/max_map_count.conf && \
+    echo vm.swappiness=0 > /etc/sysctl.d/swappiness.conf
+
 ENV ES_HEAP_SIZE 1g
+ENV MAX_OPEN_FILES=65535
+ENV MAX_LOCKED_MEMORY=unlimited
 
 # Expose ports.
 EXPOSE 9200 9300
