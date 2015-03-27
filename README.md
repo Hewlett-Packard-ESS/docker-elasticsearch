@@ -8,6 +8,7 @@ Here's an example docker-compose file.  node_name and cluster_name are not requi
 elasticsearch:
   image: hpess/elasticsearch
   hostname: elasticsearch
+  privileged: true
   environment:
     node_name: 'test_node'
     cluster_name: 'test_cluster'
@@ -15,6 +16,8 @@ elasticsearch:
     - "9200:9200/tcp" 
     - "9300:9300/tcp" 
 ```
+__NOTE__: Privileged is now required, this is because we're setting memlock unlimited to ensure optimum performance of ES.
+ 
 ## Logging
 By default, only WARN and above will be visible in the stdout and subsequently docker logs.  INFO and above are logged to /storage/logs
 
