@@ -11,6 +11,7 @@ RUN cd /opt && \
     mv $ES_PKG_NAME elasticsearch && \
     /opt/elasticsearch/bin/plugin -install mobz/elasticsearch-head && \
     /opt/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf && \
+    /opt/elasticsearch/bin/plugin -install elasticsearch/marvel/latest && \
     mkdir -p /storage/data && \
     mkdir -p /storage/log && \
     mkdir -p /storage/work && \ 
