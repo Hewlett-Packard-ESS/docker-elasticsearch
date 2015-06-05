@@ -1,7 +1,7 @@
 FROM hpess/jre:master
 MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
-ENV ES_PKG_NAME elasticsearch-1.5.0
+ENV ES_PKG_NAME elasticsearch-1.5.2
 
 # Install ElasticSearch.
 RUN cd /opt && \
