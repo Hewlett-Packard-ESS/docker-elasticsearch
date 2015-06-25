@@ -1,6 +1,6 @@
 ![Elasticsearch](/elasticsearch.png?raw=true "Elasticsearch")
 
-This container builds on hpess/jre by adding elasticsearch. Currently installing elasticsearch 1.5.2
+This container builds on hpess/jre by adding elasticsearch. Currently installing elasticsearch 1.6.0
 
 ## Use
 Here's an example docker-compose file.  node_name and cluster_name are not required.
